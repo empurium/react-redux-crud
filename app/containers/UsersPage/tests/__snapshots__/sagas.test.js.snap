@@ -1,0 +1,25 @@
+exports[`getUsers Saga should call the usersLoadingError action if the response errors 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://localhost:3001/users",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`getUsers Saga should dispatch the usersLoaded action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://localhost:3001/users",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
