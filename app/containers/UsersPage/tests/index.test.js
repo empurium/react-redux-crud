@@ -20,14 +20,9 @@ describe('<UsersPage />', () => {
       <UsersPage loadUsers={loadUsersSpy} />
     );
 
-    expect(renderedComponent.contains(
-      <Helmet
-        title="Users"
-        meta={[
-          { name: 'description', content: 'Users List' },
-        ]}
-      />
-    )).toBe(true);
+    expect(renderedComponent.find(Helmet)).toHaveLength(1);
+    expect(renderedComponent.find(Helmet).prop('title')).toBeTruthy();
+    expect(renderedComponent.find(Helmet).prop('meta')).toBeTruthy();
   });
 
   it('should render with a UsersTable and pass correct props', () => {

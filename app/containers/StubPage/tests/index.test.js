@@ -21,6 +21,8 @@ describe('<StubPage />', () => {
     );
 
     expect(renderedComponent.find(Helmet)).toHaveLength(1);
+    expect(renderedComponent.find(Helmet).prop('title')).toBeTruthy();
+    expect(renderedComponent.find(Helmet).prop('meta')).toBeTruthy();
   });
 
   it('should render its heading and sub-text', () => {
