@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
+import { Button } from 'reactstrap';
 
 import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import UsersTable from 'components/UsersTable';
@@ -16,7 +17,7 @@ export class UsersPage extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
-    const { loading, error, users } = this.props;
+    const { loading, error, users, loadUsers } = this.props;
     const usersTableProps = { loading, error, users };
 
     return (
@@ -27,6 +28,13 @@ export class UsersPage extends React.PureComponent { // eslint-disable-line reac
             { name: 'description', content: 'Users List' },
           ]}
         />
+
+        <div className="d-flex flex-row-reverse mb-3">
+          <Button color="secondary" onClick={loadUsers}>
+            <i className="fa fa-refresh"></i>
+          </Button>
+        </div>
+
         <UsersTable {...usersTableProps} />
       </div>
     );
