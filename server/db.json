@@ -1,0 +1,8 @@
+{
+  "users": [
+    { "id": 1, "username": "empurium", "email": "michael@gmail.com", "address": "1 Infinite Loop", "role": "admin" },
+    { "id": 2, "username": "robbie", "email": "robbie@gmail.com", "address": "1234 Breakpoint Street", "role": "admin" },
+    { "id": 3, "username": "todd", "email": "todd@gmail.com", "address": "4321 Todd Lane", "role": "user" },
+    { "id": 4, "username": "angela", "email": "angela@gmail.com", "address": "1011 Angela Lane", "role": "user" }
+  ]
+}
