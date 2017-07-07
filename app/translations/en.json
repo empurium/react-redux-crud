@@ -1,0 +1,13 @@
+{
+  "boilerplate.components.Header.home": "Home",
+  "boilerplate.components.Header.stub": "Stub",
+  "boilerplate.components.UsersTable.error": "",
+  "boilerplate.components.UsersTable.username": "",
+  "boilerplate.components.UsersTable.address": "",
+  "boilerplate.components.UsersTable.role": "",
+  "boilerplate.containers.StubPage.greeting": "",
+  "boilerplate.containers.StubPage.text": "",
+  "boilerplate.containers.LocaleToggle.de": "de",
+  "boilerplate.containers.LocaleToggle.en": "en",
+  "boilerplate.containers.NotFoundPage.header": "Page not found."
+}
