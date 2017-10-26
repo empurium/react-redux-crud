@@ -1,11 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router';
+import { Button } from 'reactstrap';
 
 import UserRow from '../UserRow';
 
 
 describe('<User />', () => {
+  let deleteUserSpy;
   let wrapper;
   const user = {
     id: 1,
@@ -16,8 +18,9 @@ describe('<User />', () => {
   };
 
   beforeEach(() => {
+    deleteUserSpy = jest.fn();
     wrapper = shallow(
-      <UserRow user={user} />
+      <UserRow user={user} deleteUser={deleteUserSpy} />
     );
   });
 
@@ -36,5 +39,11 @@ describe('<User />', () => {
     expect(wrapper.contains(<td>{user.email}</td>)).toBeTruthy();
     expect(wrapper.contains(<td>{user.address}</td>)).toBeTruthy();
     expect(wrapper.contains(<td>{user.role}</td>)).toBeTruthy();
+  });
+
+  it('should call delete upon clicking button', () => {
+    expect(deleteUserSpy).not.toHaveBeenCalled();
+    wrapper.find(Button).simulate('click');
+    expect(deleteUserSpy).toHaveBeenCalled();
   });
 });

@@ -1,7 +1,8 @@
-import { fromJS, List } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 import {
   selectUsersPage,
   makeSelectUsers,
+  makeSelectUser,
 } from '../selectors';
 
 
@@ -17,12 +18,13 @@ describe('selectUsersPage', () => {
 });
 
 describe('makeSelectUsers', () => {
+  const users = [
+    { title: 'user 1' },
+    { title: 'user 2' },
+  ];
+
   it('should select the users', () => {
     const usersSelector = makeSelectUsers();
-    const users = [
-      { title: 'user 1' },
-      { title: 'user 2' },
-    ];
     const mockedState = fromJS({
       usersPage: {
         users,
@@ -34,10 +36,6 @@ describe('makeSelectUsers', () => {
 
   it('should select the users after converting from a List', () => {
     const usersSelector = makeSelectUsers();
-    const users = [
-      { title: 'user 1' },
-      { title: 'user 2' },
-    ];
     const usersList = new List(users);
     const mockedState = fromJS({
       usersPage: {
@@ -46,5 +44,20 @@ describe('makeSelectUsers', () => {
     });
 
     expect(usersSelector(mockedState)).toEqual(users);
+  });
+});
+
+describe('makeSelectUser', () => {
+  const user = { id: 1, name: 'Michael' };
+
+  it('should select the user', () => {
+    const userSelector = makeSelectUser();
+    const mockedState = fromJS({
+      usersPage: {
+        user,
+      },
+    });
+
+    expect(userSelector(mockedState)).toEqual(Map(user));
   });
 });

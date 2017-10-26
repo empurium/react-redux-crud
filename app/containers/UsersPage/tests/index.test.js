@@ -10,34 +10,40 @@ import { UsersPage, mapStateToProps, mapDispatchToProps } from '../index';
 
 describe('<UsersPage />', () => {
   let loadUsersSpy;
+  let deleteUserSpy;
 
   beforeEach(() => {
     loadUsersSpy = jest.fn();
+    deleteUserSpy = jest.fn();
   });
 
   it('should render with a Helmet', () => {
     const renderedComponent = shallow(
-      <UsersPage loadUsers={loadUsersSpy} />
+      <UsersPage loadUsers={loadUsersSpy} deleteUser={deleteUserSpy} />
     );
 
     expect(renderedComponent.find(Helmet)).toHaveLength(1);
     expect(renderedComponent.find(Helmet).prop('title')).toBeTruthy();
     expect(renderedComponent.find(Helmet).prop('meta')).toBeTruthy();
+    expect(loadUsersSpy).not.toHaveBeenCalled();
+    expect(deleteUserSpy).not.toHaveBeenCalled();
   });
 
   it('should render with a UsersTable and pass correct props', () => {
     const usersTableProps = {
       loading: false,
       error: false,
-      users: false,
+      users: [{ name: 'tester' }],
+      deleteUser: deleteUserSpy,
     };
     const renderedComponent = shallow(
-      <UsersPage {...usersTableProps} loadUsers={loadUsersSpy} />
+      <UsersPage {...usersTableProps} loadUsers={loadUsersSpy} deleteUser={deleteUserSpy} />
     );
 
     expect(renderedComponent.contains(
       <UsersTable {...usersTableProps} />
     )).toBe(true);
+    expect(deleteUserSpy).not.toHaveBeenCalled();
   });
 
   it('should load users by default', () => {
@@ -45,10 +51,12 @@ describe('<UsersPage />', () => {
       <UsersPage
         users={false}
         loadUsers={loadUsersSpy}
+        deleteUser={deleteUserSpy}
       />
     );
 
     expect(loadUsersSpy).toHaveBeenCalled();
+    expect(deleteUserSpy).not.toHaveBeenCalled();
   });
 
   it('should NOT initially load users if loading', () => {
@@ -57,10 +65,12 @@ describe('<UsersPage />', () => {
         loading
         users={false}
         loadUsers={loadUsersSpy}
+        deleteUser={deleteUserSpy}
       />
     );
 
     expect(loadUsersSpy).not.toHaveBeenCalled();
+    expect(deleteUserSpy).not.toHaveBeenCalled();
   });
 
   it('should NOT initially load users if error', () => {
@@ -69,16 +79,19 @@ describe('<UsersPage />', () => {
         error
         users={false}
         loadUsers={loadUsersSpy}
+        deleteUser={deleteUserSpy}
       />
     );
 
     expect(loadUsersSpy).not.toHaveBeenCalled();
+    expect(deleteUserSpy).not.toHaveBeenCalled();
   });
 
   describe('maps state/dispatch to props', () => {
     const initialState = {
       usersPage: {
         users: false,
+        deleteUser: deleteUserSpy,
       },
     };
     const store = configureStore(initialState, browserHistory);
@@ -96,7 +109,7 @@ describe('<UsersPage />', () => {
       };
     });
 
-    ['loadUsers', 'users', 'error', 'loading'].forEach((propName) => {
+    ['deleteUser', 'loadUsers', 'users', 'error', 'loading'].forEach((propName) => {
       it(`${propName} prop should be defined`, () => {
         expect(props[propName]).toBeDefined();
       });
@@ -111,6 +124,19 @@ describe('<UsersPage />', () => {
 
       it('should dispatch action', () => {
         loadUsers();
+        expect(dispatchSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe('deleteUser()', () => {
+      let deleteUser;
+
+      beforeEach(() => {
+        deleteUser = props.deleteUser;
+      });
+
+      it('should dispatch action', () => {
+        deleteUser();
         expect(dispatchSpy).toHaveBeenCalled();
       });
     });
