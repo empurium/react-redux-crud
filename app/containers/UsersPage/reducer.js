@@ -55,7 +55,7 @@ function usersPageReducer(state = initialState, action) {
     case DELETE_USER_ERROR:
       return state
         .set('loading', false)
-        .set('error', true)
+        .set('error', action.error)
         .set('user', false);
     default:
       return state;
