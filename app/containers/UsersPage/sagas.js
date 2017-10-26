@@ -12,7 +12,7 @@ import { take, call, select, put, cancel, takeLatest } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
 
-import { LOAD_USERS, DELETE_USER } from './constants';
+import { LOAD_USERS, DELETE_USER, DELETE_USER_SUCCESS } from './constants';
 import { usersLoaded, usersLoadingError, userDeleted, userDeleteError } from './actions';
 import { makeSelectUser } from './selectors';
 
@@ -66,8 +66,17 @@ export function* watchDeleteUser() {
   yield takeLatest(DELETE_USER, deleteUser);
 }
 
+/**
+ * Saga to watch for DELETE_USER_SUCCESS actions
+ */
+export function* watchDeleteUserSuccess() {
+  yield takeLatest(DELETE_USER_SUCCESS, getUsers);
+}
+
+
 // Bootstrap sagas
 export default [
   watchLoadUsers,
   watchDeleteUser,
+  watchDeleteUserSuccess,
 ];

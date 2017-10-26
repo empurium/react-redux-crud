@@ -2,9 +2,9 @@ import { take, put, cancel, takeLatest } from 'redux-saga/effects';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { LOAD_USERS, DELETE_USER } from '../constants';
+import { LOAD_USERS, DELETE_USER, DELETE_USER_SUCCESS } from '../constants';
 import { usersLoaded, usersLoadingError, userDeleted, userDeleteError } from '../actions';
-import { getUsers, deleteUser, watchLoadUsers, watchDeleteUser } from '../sagas';
+import { getUsers, deleteUser, watchLoadUsers, watchDeleteUser, watchDeleteUserSuccess } from '../sagas';
 
 
 /* eslint-disable redux-saga/yield-effects */
@@ -100,5 +100,18 @@ describe('watchDeleteUser Saga', () => {
   it('should start task to watch for DELETE_USER action', () => {
     const takeLatestDescriptor = generator.next().value;
     expect(takeLatestDescriptor).toEqual(takeLatest(DELETE_USER, deleteUser));
+  });
+});
+
+describe('watchDeleteUserSuccess Saga', () => {
+  let generator;
+
+  beforeEach(() => {
+    generator = watchDeleteUserSuccess();
+  });
+
+  it('should start task to watch for DELETE_USER_SUCCESS action', () => {
+    const takeLatestDescriptor = generator.next().value;
+    expect(takeLatestDescriptor).toEqual(takeLatest(DELETE_USER_SUCCESS, getUsers));
   });
 });
