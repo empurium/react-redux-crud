@@ -11,6 +11,9 @@ import {
   LOAD_USERS,
   LOAD_USERS_ERROR,
   LOAD_USERS_SUCCESS,
+  DELETE_USER,
+  DELETE_USER_ERROR,
+  DELETE_USER_SUCCESS,
 } from './constants';
 
 /**
@@ -48,6 +51,45 @@ export function usersLoaded(users) {
 export function usersLoadingError(error) {
   return {
     type: LOAD_USERS_ERROR,
+    error,
+  };
+}
+
+/**
+ * Delete a user, this action starts the request saga
+ *
+ * @param  {array} user The user object
+ *
+ * @return {object} An action object with a type of DELETE_USER
+ */
+export function deleteUser(user) {
+  return {
+    type: DELETE_USER,
+    user,
+  };
+}
+
+/**
+ * Dispatched when the user is deleted by the request saga
+ *
+ * @return {object}      An action object with a type of DELETE_USER_SUCCESS passing the user
+ */
+export function userDeleted() {
+  return {
+    type: DELETE_USER_SUCCESS,
+  };
+}
+
+/**
+ * Dispatched when deleting the user fails
+ *
+ * @param  {object} error The error
+ *
+ * @return {object}       An action object with a type of DELETE_USER_ERROR passing the error
+ */
+export function userDeleteError(error) {
+  return {
+    type: DELETE_USER_ERROR,
     error,
   };
 }

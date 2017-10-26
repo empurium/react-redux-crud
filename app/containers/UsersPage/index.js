@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 
 import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import UsersTable from 'components/UsersTable';
-import { loadUsers as actionLoadUsers } from './actions';
+import { loadUsers as actionLoadUsers, deleteUser as actionDeleteUser } from './actions';
 import { makeSelectUsers } from './selectors';
 
 export class UsersPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -17,8 +17,8 @@ export class UsersPage extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
-    const { loading, error, users, loadUsers } = this.props;
-    const usersTableProps = { loading, error, users };
+    const { loading, error, users, loadUsers, deleteUser } = this.props;
+    const usersTableProps = { loading, error, users, deleteUser };
 
     return (
       <div>
@@ -52,6 +52,7 @@ UsersPage.propTypes = {
     PropTypes.bool,
   ]),
   loadUsers: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
 };
 
 
@@ -66,6 +67,7 @@ export function mapStateToProps(state) {
 export function mapDispatchToProps(dispatch) {
   return {
     loadUsers: () => dispatch(actionLoadUsers()),
+    deleteUser: (user) => dispatch(actionDeleteUser(user)),
   };
 }
 

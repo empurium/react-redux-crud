@@ -27,7 +27,13 @@ const makeSelectUsers = () => createSelector(
   }
 );
 
+const makeSelectUser = () => createSelector(
+  selectUsersPage,
+  (usersState) => usersState.get('user'),
+);
+
 export {
   selectUsersPage,
   makeSelectUsers,
+  makeSelectUser,
 };

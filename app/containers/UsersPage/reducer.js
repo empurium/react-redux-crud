@@ -13,12 +13,16 @@ import {
   LOAD_USERS,
   LOAD_USERS_SUCCESS,
   LOAD_USERS_ERROR,
+  DELETE_USER,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_ERROR,
 } from './constants';
 
 const initialState = fromJS({
   loading: true,
   error: false,
   users: false,
+  user: false,
 });
 
 function usersPageReducer(state = initialState, action) {
@@ -37,6 +41,22 @@ function usersPageReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
+
+    case DELETE_USER:
+      return state
+        .set('loading', true)
+        .set('error', false)
+        .set('user', action.user);
+    case DELETE_USER_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('error', false)
+        .set('user', false);
+    case DELETE_USER_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', true)
+        .set('user', false);
     default:
       return state;
   }

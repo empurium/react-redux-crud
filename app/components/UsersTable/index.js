@@ -6,7 +6,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import UserRow from './UserRow';
 import messages from './messages';
 
-const UsersTable = ({ loading, error = false, users }) => {
+const UsersTable = ({ loading, error = false, users, deleteUser }) => {
   if (loading) {
     return <LoadingIndicator />;
   }
@@ -16,7 +16,9 @@ const UsersTable = ({ loading, error = false, users }) => {
   }
 
   if (users !== false) {
-    const rows = users.map((user, index) => <UserRow key={`user-${index}`} user={user} />);
+    const rows = users.map((user, index) =>
+      <UserRow key={`user-${index}`} user={user} deleteUser={deleteUser} />
+    );
 
     return (
       <Table hover>
@@ -47,6 +49,7 @@ UsersTable.propTypes = {
     PropTypes.array,
     PropTypes.bool,
   ]),
+  deleteUser: PropTypes.func.isRequired,
 };
 
 export default UsersTable;
