@@ -27,6 +27,7 @@ const UsersTable = ({ loading, error = false, users }) => {
             <th>E-mail</th>
             <th><FormattedMessage {...messages.address} /></th>
             <th><FormattedMessage {...messages.role} /></th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
