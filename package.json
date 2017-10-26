@@ -187,6 +187,7 @@
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",
       "!app/*/RbGenerated*/*.{js,jsx}",
+      "!app/global-styles.js",
       "!app/app.js",
       "!app/routes.js"
     ],
